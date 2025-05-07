@@ -1,0 +1,218 @@
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://images.unsplash.com/photo-1506976785307-8732e854ad04?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 182, 193, 0.3);
+  backdrop-filter: blur(5px);
+  z-index: 0;
+}
+
+.corazon {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(to bottom right, #ff1744, #d50000);
+  transform: rotate(-45deg);
+  animation: latido 1s infinite;
+  box-shadow: 0 20px 30px rgba(255,0,0,0.5);
+  z-index: 2;
+}
+
+.corazon::before,
+.corazon::after {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(to bottom right, #ff1744, #d50000);
+  border-radius: 50%;
+}
+
+.corazon::before {
+  top: -75px;
+  left: 0;
+}
+
+.corazon::after {
+  left: 75px;
+  top: 0;
+}
+
+@keyframes latido {
+  0%, 50%, 100% { transform: scale(1) rotate(-45deg); }
+  25%, 75% { transform: scale(1.1) rotate(-45deg); }
+}
+
+/* Corazones flotantes */
+.corazones-fondo {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.corazon-flotante {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 0, 0, 0.8);
+  transform: rotate(-45deg);
+  animation: flotar 10s linear infinite;
+}
+
+.corazon-flotante::before,
+.corazon-flotante::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: inherit; /* el mismo color que el principal */
+  border-radius: 50%;
+}
+
+.corazon-flotante::before {
+  top: -10px;
+  left: 0;
+}
+
+.corazon-flotante::after {
+  left: 10px;
+  top: 0;
+}
+
+@keyframes flotar {
+  0% {
+    transform: translateY(100vh) scale(0.8) rotate(-45deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.2) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+/* Botón de música */
+#playMusic {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #ff69b4;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  transition: opacity 0.5s ease; /* 👈 Agregado */
+}
+
+#playMusic:hover {
+  background-color: #ff1493;
+  transform: scale(1.05);
+}
+
+/* Clase para ocultarlo suavemente */
+.ocultar {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* Animación de vibración */
+@keyframes vibrar {
+  0% { transform: translate(0px, 0px); }
+  25% { transform: translate(2px, -2px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(2px, 2px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+/* Animación de entrada suave */
+@keyframes entrada-suave {
+  0% {
+    transform: scale(0.5) rotate(-45deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(-45deg);
+    opacity: 1;
+  }
+}
+
+/* Aplica la animación al corazón principal */
+.corazon {
+  animation: entrada-suave 1s ease-out, latido 1s infinite 1s;
+}
+#letra {
+  position: fixed;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  font-weight: bold;
+  padding: 0 20px;
+  z-index: 5;
+  animation: aparecer 1s ease;
+}
+
+.lyrics-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  max-height: 50vh;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.8);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+.lyrics-container p {
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+#mensaje {
+  position: absolute;
+  top: 10%;
+  text-align: center;
+  width: 100%;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  z-index: 3;
+  animation: aparecer 1s ease-in-out forwards;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
